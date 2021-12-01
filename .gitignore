@@ -3,3 +3,8 @@ _site
 .jekyll-cache
 .jekyll-metadata
 vendor
+
+# mystuff
+*.code-workspace
+.vscode
+dummy*
