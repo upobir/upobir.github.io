@@ -3,13 +3,10 @@ layout: post
 title:  "Test post"
 date:   2021-12-01 18:08:25 +0600
 categories: test
+usemathjax: true
 ---
 this is a test page, that I'll delete soon.
 
 
 
-Vitae accusamus ratione neque atque dolorum deserunt. Molestias possimus officia doloremque eveniet. Vitae alias suscipit autem. Repellat quibusdam non quaerat rem voluptas. Enim repellendus non aut. Autem ducimus mollitia ratione voluptas numquam omnis.
-
-Sit magni saepe ad dolor commodi aut fuga error. Minus asperiores consequatur aut qui iure eum. Culpa et incidunt quia distinctio voluptas id. Voluptatem voluptatem corrupti repellat pariatur. Sit doloribus quis iusto vero in et. Laudantium aut at aliquam quasi sunt rerum est praesentium.
-
-Sed qui suscipit enim ex. Est sint similique repellendus. Et quam mollitia veniam praesentium eaque beatae ex itaque. Accusantium hic ratione culpa aut at aut. Voluptas odit unde necessitatibus libero.
+let's test latex, $$x_2^2$$

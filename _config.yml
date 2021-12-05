@@ -29,6 +29,9 @@ github_username:  upobir
 
 # Build settings
 theme: minima
+markdown: kramdown
+kramdown:
+  math_engine: mathjax
 # plugins:
 #   - jekyll-feed
 
