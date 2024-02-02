@@ -47,6 +47,8 @@ enableRobotsTXT = true
     });
   </script>
   '''
+  showPostsOnHomePage = "popular"
+
 
   metaKeywords = ["blog", "upobir", "sabbir rahman"]
   footer = "Sabbir Rahman"
