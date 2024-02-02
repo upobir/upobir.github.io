@@ -1,1 +1,0 @@
-A basic blog to be used by me. currently mathjax is used for latex, hope to make it work with katex in future
