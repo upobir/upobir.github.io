@@ -5,7 +5,6 @@ type = 'post'
 description = 'While messing around with idea of continuing my blog, I came to learn about Hugo, a static site generator written in Go. I digged a bit, and decided to use it as topic for my new blog post.'
 tags = ['tools', 'computer science']
 
-draft = true
 +++
 
 I have recently decided to *restart* this blog of mine. The idea is that I'll try to semi-regularly post *"What I learned Recently"* posts. While these posts can be from any topic, they will probably be around software development, competitive programming and mathematics. For the first post, I decided to write about Hugo, the tool that I have used to generate this blog itself! Now as the title says, this is something that I learned recently, so this article probably won't be that deep, but I hope you'll like what I have to share.
@@ -42,12 +41,15 @@ title = '<whatever-you-want>'
 date =  '2024-02-03T23:56:44+06:00'
 +++
 
-A new post!
+Yayyyyyy, this is my first post, that I've made using Hugo!
 ```
 
 Notice the toml part between the `+++`, this is called the front matter, it's used to inject stuff, add metadata or manipulate the generated html. We in particular removed the `draft = true` to make the post visible in our site. 
 
 To see this new post, you can now just run `hugo serve` which will start a local serer in `1313` port where you can see your new site. But this is only a local development server, to actually build the site (i.e. the html and other stuff), run `hugo build`. That's it! 
+
+![Homepage of Site](/images/hugo-site-generator/homepage.png)
+*The homepage*
 
 #### But What is Hugo Really Doing?
 The last part is all good and well, but if you're like me, you want to know what is making Hugo build the website just from that one markdown. Can it be customized to add more pages? Different kind of pages? Different styles? All of these are answered in the official documentation in detail. But I present a short summary of some key points. First thing to note are the files and folders created by Hugo. Some folders are self explanatory, like `assets` is used to store javascript or css and `static` is used to store static media files like images. But the first point of customization is the `hugo.toml`.
@@ -55,6 +57,12 @@ The last part is all good and well, but if you're like me, you want to know what
 Hugo uses the `hugo.toml` file to set configuration for the whole site. Hugo supports Yaml and Json too, the tool just uses Toml format as default. In the config file you will find parameters like `baseURL`, `title`, `theme` and others. It's also possible to specify custom parameters that can be injected to the site. 
 
 When you run `hugo new content`, Hugo makes a markdown file in `content` folder following the template markdown `archetypes/default.md`. In particular, you can set up several such template markdowns in `archetypes` folder. Based on folders inside `content` these templates are used. Hugo uses the relative path from `content` folder to file to create the urls. It's also important to note that Hugo divides pages to two major types: **single pages** and **list pages** (there are exceptions). When you make a markdown file, you are making a single page, like above. But Hugo also auto generates list pages for direct child folders of `content`. So you can actually go to the url `/posts/` in above example, where you will find list of posts. You can also force list page for any folder by making a `_index.md` file in the folders, but most of the time, that's unnecessary. While home page is treated like a list page, it's possible to treat the homepage differently. There is also something called *Taxonomies*, but that's a bit out of scope of this article.
+
+![Single Pages](/images/hugo-site-generator/singlepage.png)
+*Single page*
+
+![List Pages](/images/hugo-site-generator/listpage.png)
+*List page*
 
 So Hugo has pages, how does it then build the beautiful website? Hugo first looks into your `layouts` folder. More specifically it looks at the `layout/_default/single.html` and `layout/_default/list.html`. In place of `_default` it can search based on child folders of `content` too. So you could replace `_default` with `posts` in the above example. When Hugo sees that these htmls are not present, now it falls back to the *theme*. It knows from the configs, that theme is `ananke`, so it'll now look at `themes/ananke/layout` folder. If you take a look at the `single.html` there you will find lots of html mixed with things in `{{ }}`. This is Go's templating. Hugo renders the html using the page's content, front matter, location and site configs. In particular here is a very minimalist code for such template file
 
@@ -88,7 +96,9 @@ Other folders such as `i18n` is used for internationalization and `data` for kee
 
 #### Ending Note
 
-At first, I was quite puzzled with how things are wired in Hugo, but with usage, that has lessened. For purposes like where I just want to play around with making my own blog, Hugo seemed like the perfect tool. I hope you found this article little bit of help, so that you can start using Hugo too!
+At first, I was quite puzzled with how things are wired in Hugo, but with usage, that has lessened. For purposes like where I just want to play around with making my own blog, Hugo seemed like the perfect tool. Also you don't have to build the html or css, you can use one of many prebuilt themes from [Hugo themes collection](https://themes.gohugo.io/). This blog is made using the theme [gokarna](https://github.com/526avijitgupta/gokarna), I am sure you will find something suitable for you too. 
+
+I hope you found this article little bit of help, so that you can start using Hugo too!
 
 ----
 *I try to share things that I have learnt recently, and in the process, I can obviously make mistakes, so if you think you found something wrong feel free to [create a issue in the github repository for this blog](https://github.com/upobir/upobir.github.io/issues/new).*
