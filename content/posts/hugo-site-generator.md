@@ -89,3 +89,6 @@ Other folders such as `i18n` is used for internationalization and `data` for kee
 #### Ending Note
 
 At first, I was quite puzzled with how things are wired in Hugo, but with usage, that has lessened. For purposes like where I just want to play around with making my own blog, Hugo seemed like the perfect tool. I hope you found this article little bit of help, so that you can start using Hugo too!
+
+----
+*I try to share things that I have learnt recently, and in the process, I can obviously make mistakes, so if you think you found something wrong feel free to [create a issue in the github repository for this blog](https://github.com/upobir/upobir.github.io/issues/new).*

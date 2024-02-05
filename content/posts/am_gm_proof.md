@@ -123,4 +123,5 @@ Another thing to note is that, the proof goes into pre-calculus i.e. analysis a 
 
 Hopefully, you found the proof interesting. An important aspect of the proof is that it highlights that AM-GM inequality does indeed need ideas of analysis, even though it feels to be quite simple. 
 
-Any constructive feedback is appreciated.
+----
+*I try to share things that I have learnt recently, and in the process, I can obviously make mistakes, so if you think you found something wrong feel free to [create a issue in the github repository for this blog](https://github.com/upobir/upobir.github.io/issues/new).*
