@@ -50,4 +50,42 @@ Notice the toml part between the `+++`, this is called the front matter, it's us
 To see this new post, you can now just run `hugo serve` which will start a local serer in `1313` port where you can see your new site. But this is only a local development server, to actually build the site (i.e. the html and other stuff), run `hugo build`. That's it! 
 
 #### But What is Hugo Really Doing?
+The last part is all good and well, but if you're like me, you want to know what is making Hugo build the website just from that one markdown. Can it be customized to add more pages? Different kind of pages? Different styles? All of these are answered in the official documentation in detail. But I present a short summary of some key points. First thing to note are the files and folders created by Hugo. Some folders are self explanatory, like `assets` is used to store javascript or css and `static` is used to store static media files like images. But the first point of customization is the `hugo.toml`.
 
+Hugo uses the `hugo.toml` file to set configuration for the whole site. Hugo supports Yaml and Json too, the tool just uses Toml format as default. In the config file you will find parameters like `baseURL`, `title`, `theme` and others. It's also possible to specify custom parameters that can be injected to the site. 
+
+When you run `hugo new content`, Hugo makes a markdown file in `content` folder following the template markdown `archetypes/default.md`. In particular, you can set up several such template markdowns in `archetypes` folder. Based on folders inside `content` these templates are used. Hugo uses the relative path from `content` folder to file to create the urls. It's also important to note that Hugo divides pages to two major types: **single pages** and **list pages** (there are exceptions). When you make a markdown file, you are making a single page, like above. But Hugo also auto generates list pages for direct child folders of `content`. So you can actually go to the url `/posts/` in above example, where you will find list of posts. You can also force list page for any folder by making a `_index.md` file in the folders, but most of the time, that's unnecessary. While home page is treated like a list page, it's possible to treat the homepage differently. There is also something called *Taxonomies*, but that's a bit out of scope of this article.
+
+So Hugo has pages, how does it then build the beautiful website? Hugo first looks into your `layouts` folder. More specifically it looks at the `layout/_default/single.html` and `layout/_default/list.html`. In place of `_default` it can search based on child folders of `content` too. So you could replace `_default` with `posts` in the above example. When Hugo sees that these htmls are not present, now it falls back to the *theme*. It knows from the configs, that theme is `ananke`, so it'll now look at `themes/ananke/layout` folder. If you take a look at the `single.html` there you will find lots of html mixed with things in `{{ }}`. This is Go's templating. Hugo renders the html using the page's content, front matter, location and site configs. In particular here is a very minimalist code for such template file
+
+```html
+<h3>
+    {{- .Title -}}
+</h3>
+<h4>
+    {{- .Date | time.Format "January 2, 2006" -}}
+</h4>
+<p>
+    {{- .Content -}}
+</p>
+```
+
+I won't explain the details, but I think you get the gist here. Similarly the list page (which for ananke, is the `_default/list.html`, do not get confused due to there being `post` folder, that won't apply as our folder is `posts`) utilizes ranges
+
+```html
+<ul>
+{{ range .Pages }}
+    <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+{{ end }}
+</ul>
+```
+
+Here Hugo will traverse over all nested pages (not necessarily single, not necessarily direct child) and list them. List pages can also utilize `{{- .Content -}}`, if there is a corresponding `_index.md`. There are lots more intricacies and templating functions. You can find those in the documentation of course. 
+
+Also note that themse generally utilize `baseof.html`, a base html which defines html skeleton. The `single.html` or `list.html` utilizet these automatically, plugging in their parts in **blocks**. There's also partial templates meant to be composable for DRY patterns. And, for home page, you can customize it by using the `index.html` just inside `layouts`. Enough templating for now, go to the docs if you want to know more.
+
+Other folders such as `i18n` is used for internationalization and `data` for keeping data files as json or similar. There are many other concerns like latex for maths or taxonomies (the tags you see in this blog), but trying to cover all in one article will be foolish. Also I don't know everything myself, hehe.
+
+#### Ending Note
+
+At first, I was quite puzzled with how things are wired in Hugo, but with usage, that has lessened. For purposes like where I just want to play around with making my own blog, Hugo seemed like the perfect tool. I hope you found this article little bit of help, so that you can start using Hugo too!
