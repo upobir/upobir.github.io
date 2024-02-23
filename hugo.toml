@@ -26,7 +26,7 @@ enableRobotsTXT = true
     pre = "<span data-feather='github'></span>"
 
 [params]
-  avatarURL = "https://scontent-ams4-1.xx.fbcdn.net/v/t39.30808-6/279820946_4956690371094559_3756523257406412059_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=9c7eae&_nc_eui2=AeHYxHlL-W0vQVZ9eIF8DFW1qka4ROoHW16qRrhE6gdbXnsCRYPTyUv-b0oC9vVKT207RHY5BtFG4BW-Gy4WAvSW&_nc_ohc=di2GSpiE7i8AX-dqp-y&_nc_ht=scontent-ams4-1.xx&oh=00_AfD24n9WCidypK4FTQfKgo_TkrVQ-KuZp_-RWwv90XztCw&oe=65C2D070"
+  avatarURL = "/images/avatar.jpg"
   avatarSize = "size-l"
   description = "I love mathematics and programming!"
   accentColor = "#FF4D4D"
