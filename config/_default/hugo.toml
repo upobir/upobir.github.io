@@ -1,0 +1,7 @@
+baseURL = "https://upobir.github.io/"
+defaultContentLanguage = "en"
+languageCode = "en"
+
+title = "Upobir's Blog"
+theme = "gokarna"
+enableRobotsTXT = true
