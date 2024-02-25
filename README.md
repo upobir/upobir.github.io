@@ -15,4 +15,4 @@ To run the development server, run `hugo serve`.
 - The server will start in localhost port `1313` to customize, use `-p <port>`. 
 - To build draft pages too, use `-D`
 
-To create new post, run `hugo new posts/<url>.md`. Note the `draft = true` will be in the default created page, remember to erase it when merging to main branch.
+To create new post, run `hugo new content posts/<url>.md`. Note the `draft = true` will be in the default created page, remember to erase it when merging to main branch.
