@@ -12,7 +12,7 @@ Tmux is a *Terminal Multiplexer*, which is just a fancy way of describing an org
 
 The source of all Tmux related knowledge is the [Tmux man page](https://manpages.ubuntu.com/manpages/focal/en/man1/tmux.1.html). But it is huge! You can read articles or watch tutorials about Tmux, but I found most to be too shallow level. So I did some skimming of the man pages, and I think I have a better understanding of Tmux now. In this article, I'll first go through a quickstart to showcase common functionalities and concepts of tmux, then I'll go deeper into the command system and configurations.
 
-### A Quick Overview of Tmux
+### A quick overview of Tmux
 
 To start with Tmux, you need to install it first. Check out [Tmux wiki's installing page](https://github.com/tmux/tmux/wiki/Installing) for instructions. For ubuntu, it might be installed by default, you can run `tmux --help` in your terminal to be sure. Once installed, let's run it and see what it does. Note the following instructions are meant to quickly showcase Tmux's capabilities, they might not make sense now, but I will explain later. It's also advised to follow along, I do provide screenshots, but doing the real thing is best.
 
@@ -84,6 +84,54 @@ send-keys -t 2 "termdown" Enter
 ```
 
 When sourced, the above file splits vertically, goes back to first pane, grows it downward a bit, splits horizontally and then sends three commands to the three panes. By the way, if you intend to write lots of tmux scripts, try `tmux source -nv <path-to-file>`. This will only parse (not execute) the file and log out exact commands. So, if the script has `resize-p`, the command will log `resize-pane`, useful for debugging.
+
+### Configuring Tmux to be your own
+
+The last section hopefully gave you a good understanding of how we *interact* with Tmux. Now if you start using Tmux, it will probably become a big part of your workflow. And then it's important to customize it to be the most useful for you. When starting the Tmux server, Tmux checks for some configuration files, the order of searching can be found in the man pages. For now, just know that if there is a `.tmux.conf` file in your home directory, Tmux will source it. So we can put some useful things there such as new key bindings, some customizations etc. 
+
+The appearance and behaviour of Tmux is controlled by several *options*. We can set these options with `tmux set-option` with flags (`-w` for window, `-p` for pane, `-s` for server, default for session). Note some use `set-window-option` separate, but it's same as `set-option -w`. Additionally the flag `-g` makes global option updates, which are inherited by newly created windows or sessions. Don't forget to use the `-g` flag if you're editing the `.tmux.conf`, since without it tmux will try to update "current" session, which doesn't exist at the time of server startup. The list of available options is quite long, I'll suggest go through the man pages. 
+
+I personally have made the following tmux file with help from internet and inspriation from [Learn Linux TV's video](https://www.youtube.com/watch?v=-f9rz7joEOA) and [NetworkChuck's video](https://www.youtube.com/watch?v=nTqu6w2wc68). Note that I have not used proper flags to specify window or session options, because tmux can figure out which is which
+
+```bash
+# mouse support like clicking to select pane, scrolling, selecting text to auto copy etc.
+set-option -g mouse on
+# color in terminals, tmux needs screen terminal or derivative for proper functioning
+set-option -g default-terminal "screen-256color"
+# indexing will start with 1 for everyting
+set-option -g base-index 1
+# make status bar cyan colored, I like this
+set-option -g status-bg cyan
+# center the window names in status bar
+set-option -g status-justify absolute-centre
+# set base index but for panes
+set-option -g pane-base-index 1
+# set copy mode to use vi mode
+set-option -g mode-keys vi
+# set current window's bg to be yellow in status bar, again I like this
+set-option -g window-status-current-style bg=yellow
+
+# pressing prefx + r reloads .tmux.conf, displays a message to show it to
+bind-key -T prefix r source-file ~/.tmux.conf \; display-message "Config Reloaded..."
+# following two make newly created panes in same path as current one
+bind-key -T prefix  %  split-window -h -c "#{pane_current_path}"
+bind-key -T prefix '"' split-window -v -c "#{pane_current_path}"
+# following four allow navigating panes with just alt + direction, no prefix needed
+bind-key -T root M-Left select-pane -L
+bind-key -T root M-Right select-pane -R
+bind-key -T root M-Up select-pane -U
+bind-key -T root M-Down select-pane -D
+# pressing prefix + j will prompt to move current pane to another window
+bind-key -T prefix j command-prompt -p "select window:"  "join-pane -t :'%%'"
+# pressing prefix then S (captial s), prompts for window to swap
+bind-key -T prefix S command-prompt -p "select window:"  "swap-window -t :'%%'"
+```
+
+Among these, the copy mode is important, the need to copy text from terminal is very frequent, you can just select the text to copy (thanks to mouse option). Or you can also press prefix then `[` to go to copy mode, move in vi mode, press space to start copying and press enter to copy and exit copy mode. The last option makes swapping windows easier, but when the index you want to move your current window to is not in use, you have to use move-window (prefix, then `.`). Finally you can also customize and set some other prefix key, many people do that. You can do something like `set-option -g prefix C-f` to make `ctrl+f` the prefix key, and additionally keep a secodn prefix key. But I think `C-b` is fine for me. Hope you can customize Tmux too now!
+
+### Conclusion
+
+This was a big article. Hope I could get you to understand Tmux a bit better. If you are serious about using Tmux, I'll suggest to go throught the man pages more. But before ending the article, here's a simple quiz, if you need to press the prefix key for the terminal itself, what will you do? i.e. You want to send the `ctrl+b` button click to the terminal, not the Tmux. The answer's quite easy, just read a bit of the man pages ;)
 
 ----
 *I try to share things that I have learnt recently, and in the process, I can obviously make mistakes, so if you think you found something wrong feel free to [create a issue in the github repository for this blog](https://github.com/upobir/upobir.github.io/issues/new).*
