@@ -1,0 +1,17 @@
+[[main]]
+  identifier = "posts"
+  url = "/posts/"
+  name = "Posts"
+  weight = 1
+
+[[main]]
+  identifier = "tags"
+  name = "Tags"
+  url = "/tags/"
+  weight = 2
+
+[[main]]
+  identifier = "github"
+  url = "https://github.com/upobir/"
+  weight = 3
+  pre = "<span data-feather='github'></span>"

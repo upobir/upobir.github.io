@@ -1,0 +1,33 @@
+avatarURL = "/images/avatar.jpg"
+avatarSize = "size-l"
+description = "I love mathematics and programming!"
+accentColor = "#FF4D4D"
+ShowBackToTopButton = true
+customHeadHTML = '''
+    <!-- Ketex -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+            ],
+            throwOnError : false
+        });
+    });
+    </script>
+'''
+showPostsOnHomePage = "popular"
+
+metaKeywords = ["blog", "upobir", "sabbir rahman"]
+footer = "Sabbir Rahman"
+
+socialIcons = [
+    {name = "twitter", url = "https://twitter.com/upobir"},
+    {name = "linkedin", url = "https://www.linkedin.com/in/upobir/"},
+    {name = "facebook", url = "https://www.facebook.com/sabbir.r.abir/"},
+    {name = "github", url = "https://github.com/upobir"},
+]
