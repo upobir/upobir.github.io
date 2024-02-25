@@ -12,7 +12,7 @@ Tmux is a *Terminal Multiplexer*, which is just a fancy way of describing an org
 
 The source of all Tmux related knowledge is the [Tmux man page](https://manpages.ubuntu.com/manpages/focal/en/man1/tmux.1.html). But it is huge! You can read articles or watch tutorials about Tmux, but I found most to be too shallow level. So I did some skimming of the man pages, and I think I have a better understanding of Tmux now. In this article, I'll first go through a quickstart to showcase common functionalities and concepts of tmux, then I'll go deeper into the command system and configurations.
 
-#### A Quick Overview of Tmux
+### A Quick Overview of Tmux
 
 To start with Tmux, you need to install it first. Check out [Tmux wiki's installing page](https://github.com/tmux/tmux/wiki/Installing) for instructions. For ubuntu, it might be installed by default, you can run `tmux --help` in your terminal to be sure. Once installed, let's run it and see what it does. Note the following instructions are meant to quickly showcase Tmux's capabilities, they might not make sense now, but I will explain later. It's also advised to follow along, I do provide screenshots, but doing the real thing is best.
 
@@ -36,7 +36,7 @@ What if we are done with a pane? We can kill a pane in two ways, either run `exi
 
 Ok that was lots of instructions. Hopefully you got the gist of tmux, in fact you can already start using it with these instructions. But it's a bit bland right now, we'll see customizations in the last part of the article. Before that let's try to dig deeper into the tmux interface.
 
-#### Tmux commands: shell prompt, command prompt, key bindings and tmux scripts
+### Tmux commands: shell prompt, command prompt, key bindings and tmux scripts
 
 ----
 *I try to share things that I have learnt recently, and in the process, I can obviously make mistakes, so if you think you found something wrong feel free to [create a issue in the github repository for this blog](https://github.com/upobir/upobir.github.io/issues/new).*

@@ -12,7 +12,7 @@ $$\frac{x_1+x_2+\cdots+x_n}{n} \geq (x_1 x_2 \cdots x_n)^{1/n}$$
 
 With equality happening only when all $x_i$ are equal. Now, I find this inequality quite beautiful. But I never found its proofs beautiful. Don't get me wrong, the proofs can be quite insightful, in fact the cauchy induction one (see the wiki page) is ingenious. But personally, I just didn't find the beauty. And a few years back, while playing around with inequalities, I came across quite an interesting proof. So here goes my attempt of expressing that proof. Note that, I found the proof quite interesting and it's perfectly fine if you find it dull. But hopefully, you won't.
 
-#### An Inductive Approach
+### An Inductive Approach
 Let's try [induction](https://en.wikipedia.org/wiki/Mathematical_induction) on the value of $n$, the number of variables. Let's consider the base case to be $n=2$ (the proof doesn't work with base $1$). So we need to prove
 
 $$\frac{x_1+x_2}{2} \geq \sqrt{x_1 x_2}$$
@@ -73,7 +73,7 @@ if you know a little bit of pre-calculus then you should know that $\frac{1}{-2}
 
 Now here's the magic, this process that we just did works to extend the statement from any $n=m$ to $n=m+1$. The details require a bit formalism. But the process if completely same. And this is the proof. Now if you don't trust me, the following section has the formal details.
 
-#### Details of The Inductive Step
+### Details of The Inductive Step
 
 Suppose we know that AM-GM inequality is true for $n=m$ variables. Now for $n=m+1$ variables $x_1, \cdots, x_{m+1}$ we pick each subset of $m$ variables and apply the hypothesis on it to get following inequality (where $x_k$ is not in the set)
 
@@ -113,13 +113,13 @@ $$
 
 And we are done, finally.
 
-#### A Challange and Some Hand Waving
+### A Challange and Some Hand Waving
 
 Note that during the proof, I avoided a particular part of the statement. The inequality becomes equality when all variables are equal. The proof does show this, but I am leaving this as an exercise for the reader (hehe).
 
 Another thing to note is that, the proof goes into pre-calculus i.e. analysis a bit. And we had to work with a limit of sequences. You can't really hand wave these like I did. For example, elements of a sequence can be smaller than $2$, but its limit can fail to be smaller than $2$ (can you come up with such a sequence?). Anyways, I have checked the details and the hand wavings work in this proof. But try to do it yourself too.
 
-#### Conclusion
+### Conclusion
 
 Hopefully, you found the proof interesting. An important aspect of the proof is that it highlights that AM-GM inequality does indeed need ideas of analysis, even though it feels to be quite simple. 
 

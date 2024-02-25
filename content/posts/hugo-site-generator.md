@@ -9,7 +9,7 @@ tags = ['tools', 'computer science']
 
 I have recently decided to *restart* this blog of mine. The idea is that I'll try to semi-regularly post *"What I learned Recently"* posts. While these posts can be from any topic, they will probably be around software development, competitive programming and mathematics. For the first post, I decided to write about Hugo, the tool that I have used to generate this blog itself! Now as the title says, this is something that I learned recently, so this article probably won't be that deep, but I hope you'll like what I have to share.
 
-#### An Introduction to Hugo
+### An Introduction to Hugo
 As the [official site](https://gohugo.io/) states, Hugo is a fast static site generator built with Go. Static site generators are tools used to build websites centering around content easily. The idea is that you'll put your content in something like markdown, free from complexities of HTML or CSS and the generator will build the static website for you. Let's use Hugo to build a very simple site to see how this happens. The following section is more or less taken from the [quick start page of official documentation](https://gohugo.io/getting-started/quick-start/). 
 
 To use Hugo, you will of course need to install it, you can find the instructions in the official documentation. But an advise, if you're using Debian, don't go for the apt install, at the time of writing, it is not up-to-date. Rather try the snap install. Once installed, you can create a new *"site"* by running following instruction
@@ -51,7 +51,7 @@ To see this new post, you can now just run `hugo serve` which will start a local
 ![Homepage of Site](/images/hugo-site-generator/homepage.png)
 *The homepage*
 
-#### But What is Hugo Really Doing?
+### But What is Hugo Really Doing?
 The last part is all good and well, but if you're like me, you want to know what is making Hugo build the website just from that one markdown. Can it be customized to add more pages? Different kind of pages? Different styles? All of these are answered in the official documentation in detail. But I present a short summary of some key points. First thing to note are the files and folders created by Hugo. Some folders are self explanatory, like `assets` is used to store javascript or css and `static` is used to store static media files like images. But the first point of customization is the `hugo.toml`.
 
 Hugo uses the `hugo.toml` file to set configuration for the whole site. Hugo supports Yaml and Json too, the tool just uses Toml format as default. In the config file you will find parameters like `baseURL`, `title`, `theme` and others. It's also possible to specify custom parameters that can be injected to the site. 
@@ -94,7 +94,7 @@ Also note that themse generally utilize `baseof.html`, a base html which defines
 
 Other folders such as `i18n` is used for internationalization and `data` for keeping data files as json or similar. There are many other concerns like latex for maths or taxonomies (the tags you see in this blog), but trying to cover all in one article will be foolish. Also I don't know everything myself, hehe.
 
-#### Ending Note
+### Ending Note
 
 At first, I was quite puzzled with how things are wired in Hugo, but with usage, that has lessened. For purposes like where I just want to play around with making my own blog, Hugo seemed like the perfect tool. Also you don't have to build the html or css, you can use one of many prebuilt themes from [Hugo themes collection](https://themes.gohugo.io/). This blog is made using the theme [gokarna](https://github.com/526avijitgupta/gokarna), I am sure you will find something suitable for you too. 
 
