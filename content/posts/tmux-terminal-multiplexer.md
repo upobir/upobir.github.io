@@ -5,7 +5,6 @@ type = 'post'
 description = 'While trying to work with various codebases for my work, I found terminal management difficult. Opening several servers in several terminal tabs and then also keeping a repl open in another, it was all a bit messy. So I finally decided to go for Tmux. Here is what I learned so far.'
 tags = ['tools', 'computer science', 'terminal']
 
-draft = true
 +++
 
 Tmux is a *Terminal Multiplexer*, which is just a fancy way of describing an organization tool for several terminals. Tmux manages a server which maintains several [pseudoterminals](https://en.wikipedia.org/wiki/Pseudoterminal), you can then connect to this server and work on those terminals. This is extremely useful when you're working over SSH, because even if your SSH disconnects, the Tmux server running on the remote machine keeps the terminal sessions running and can be attached to again. Besides this, Tmux also makes it easy to arrange terminals for productivity. It will make more sense when you use it.
