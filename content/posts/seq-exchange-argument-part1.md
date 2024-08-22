@@ -17,7 +17,11 @@ An warning, this article will get a bit formal, since we are talking about provi
 ### Formal Definitions First
 First, let's define the kind of problems we are handling. Suppose you are given a sequence $S$ of objects and a scoring function $f$ which provides a score on any permutation of the sequence $S$. Your task is to find the permutation $S^\prime$ such that $f(S^\prime)$ is either maximum (or minimum). The actual target is generally irrelevant, formally speaking. So I'll say that the goal is to _optimize_ the score instead of maximizing or minimizing.
 
-Here's an example of the problem, the sequence $S$ is $[40, 10, 30, 20]$ and the scoring function is $f(S) = S_1 \times 1 + S_2 \times 2 + S_3 \times 3 + S_4 \times 4$. You need to find the permutation producing maximum result. With a bit playing around you'll find the answer is $[10, 20, 30, 40]$
+Here's an example of the problem, the sequence $S$ is $[40, 10, 30, 20]$ and the scoring function is $f(S) = S_1 \times 1 + S_2 \times 2 + S_3 \times 3 + S_4 \times 4$. You need to find the permutation producing maximum result. With a bit of playing around you'll find the answer is $[10, 20, 30, 40]$.
+
+Now, the set of all the problems following this pattern is huge, let's call these permutation optimizing problems. But luckily there's a trick to solve them for some specific cases. The trick is called exchange argument and that is also a vast trick. I will be focusing on a narrowser scope. The following is the exchange argument specific for permutation optimizing problems
+
+If you find a 
 
 ---
 _I try to share things that I have learnt recently, and in the process, I can obviously make mistakes, so if you think you found something wrong feel free to [create a issue in the github repository for this blog](https://github.com/upobir/upobir.github.io/issues/new)._
