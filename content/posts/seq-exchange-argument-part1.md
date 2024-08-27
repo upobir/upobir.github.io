@@ -19,9 +19,20 @@ First, let's define the kind of problems we are handling. Suppose you are given 
 
 Here's an example of the problem, the sequence $S$ is $[40, 10, 30, 20]$ and the scoring function is $f(S) = S_1 \times 1 + S_2 \times 2 + S_3 \times 3 + S_4 \times 4$. You need to find the permutation producing maximum result. With a bit of playing around you'll find the answer is $[10, 20, 30, 40]$.
 
-Now, the set of all the problems following this pattern is huge, let's call these permutation optimizing problems. But luckily there's a trick to solve them for some specific cases. The trick is called exchange argument and that is also a vast trick. I will be focusing on a narrowser scope. The following is the exchange argument specific for permutation optimizing problems
+Now, the set of all the problems following this pattern is huge, let's call these _permutation optimizing problems_. Luckily there's a trick to solve them for some specific cases. The trick is called exchange argument and that is also a vast trick. I will be focusing on a narrowser scope. The following is the exchange argument specific for permutation optimizing problems:
 
-If you find a 
+In a maximizing problem, suppose you can find a relational operator $\preceq$ such that if $a \preceq b$ and $S_1, S_2$ both sequence have $a, b$ adjancent with $S_1$ having $a$ first and $S_2$ having $b$ first, then $f(S_1) \geq f(S_2)$. Then the sequence $S^\prime$ found by sorting the original sequence using $\preceq$ will be the one with maximum score. Similarly for minimizing problem $f(S_1) \leq f(S_2)$ will imply $f(S^\prime)$ will attain minimum score.
+
+The fact above seems to make sense, if you think about it. What the requirement of $\preceq$ is basically that swapping according to this operator will make the score better or same. So from any permutation of the original sequence, you can perform swaps according to $\preceq$ to reach $S^\prime$ and while making the swaps, you will never make the score worse. So $S^\prime$ will definitely be the best. Note the statement does not say it will be the only best sequence, but it will be one of the best sequences. In fact when $a \preceq b$ and $b \preceq a$, there's no requirement of one coming before another, so the sort itself can provide multiple optimal answers.
+
+Now, the way to find this $\preceq$ is not really fixed. But there are general approaches. Let's see some examples.
+
+### Example 1: Score Is Sum Over Position Times Elements
+Let's try the example from previous section. The scoring function is $f(S) = \sum \limits_{i=1}^{len(S)} i \times S_i$, the goal is to maximize this result. How can we find the mysterious $\preceq$? The idea is to go in reverse. Suppose two elements are $a, b$. We need to figure out if $a \preceq b$ or $b \preceq a$. Let's focus in one case, suppose $S_1$ has $a, b$ at positions $i, i+1$, while $S_2$ has $a, b$ at positions $i+1, i$. Now if we compare $f(S_1)$ and $f(S_2)$, you will notice that most of the sums are same except for position $i$ and $i+1$. In fact if you cancel out the common terms, then those two scores have $ai + b(i+1)$ and $bi + a(i+1)$ left. If it is the case that $a \preceq b$, then $f(S_1) \geq f(S_2) \implies ai + b(i+1) \geq bi + a(i+1) \implies b \geq a$. Soooo, $a \preceq b \implies a \leq b$. 
+
+You might be celebrating that we have found our illusive $\preceq$. But this is a one way implication, this detail will be important in a later example. For now, we can say that we define $a \preceq b$ as $a \leq b$, because after all, $\preceq$ is a operator we need to find. So if you sort a sequence using $\preceq$, better known as $\leq$, we find an optimal sequence. In fact, for the example in previous section, we had to sort $[40, 10, 30, 20]$ by $\leq$ to find $[10, 20, 30, 40]$, the answer.
+
+
 
 ---
 _I try to share things that I have learnt recently, and in the process, I can obviously make mistakes, so if you think you found something wrong feel free to [create a issue in the github repository for this blog](https://github.com/upobir/upobir.github.io/issues/new)._
