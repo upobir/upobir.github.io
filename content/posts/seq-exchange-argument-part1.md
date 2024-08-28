@@ -28,11 +28,24 @@ The fact above seems to make sense, if you think about it. What the requirement 
 Now, the way to find this $\preceq$ is not really fixed. But there are general approaches. Let's see some examples.
 
 ### Example 1: Score Is Sum Over Position Times Elements
-Let's try the example from previous section. The scoring function is $f(S) = \sum \limits_{i=1}^{len(S)} i \times S_i$, the goal is to maximize this result. How can we find the mysterious $\preceq$? The idea is to go in reverse. Suppose two elements are $a, b$. We need to figure out if $a \preceq b$ or $b \preceq a$. Let's focus in one case, suppose $S_1$ has $a, b$ at positions $i, i+1$, while $S_2$ has $a, b$ at positions $i+1, i$. Now if we compare $f(S_1)$ and $f(S_2)$, you will notice that most of the sums are same except for position $i$ and $i+1$. In fact if you cancel out the common terms, then those two scores have $ai + b(i+1)$ and $bi + a(i+1)$ left. If it is the case that $a \preceq b$, then $f(S_1) \geq f(S_2) \implies ai + b(i+1) \geq bi + a(i+1) \implies b \geq a$. Soooo, $a \preceq b \implies a \leq b$. 
+Let's try the example from previous section. The scoring function is $f(S) = \sum \limits_{i=1}^{len(S)} i \times S_i$, the goal is to maximize this result. How can we find the mysterious $\preceq$? The idea is to go in reverse. Suppose two elements are $a, b$. We need to figure out if $a \preceq b$ or $b \preceq a$. Let's focus in one case, suppose $S_1$ has $a, b$ at positions $i, i+1$, while $S_2$ has $a, b$ at positions $i+1, i$ (and all other elements are same). Now if we compare $f(S_1)$ and $f(S_2)$, you will notice that most of the sums are same except for position $i$ and $i+1$. In fact if you cancel out the common terms, then those two scores have $ai + b(i+1)$ and $bi + a(i+1)$ left. If it is the case that $a \preceq b$, then $f(S_1) \geq f(S_2) \implies ai + b(i+1) \geq bi + a(i+1) \implies b \geq a$. Soooo, $a \preceq b \implies a \leq b$. 
 
 You might be celebrating that we have found our illusive $\preceq$. But this is a one way implication, this detail will be important in a later example. For now, we can say that we define $a \preceq b$ as $a \leq b$, because after all, $\preceq$ is a operator we need to find. So if you sort a sequence using $\preceq$, better known as $\leq$, we find an optimal sequence. In fact, for the example in previous section, we had to sort $[40, 10, 30, 20]$ by $\leq$ to find $[10, 20, 30, 40]$, the answer.
 
+By the way, this toy problem is inspried from [rearrangement inequality](https://en.wikipedia.org/wiki/Rearrangement_inequality).
 
+### Example 2: Score Is Sum Of Deadline Penalty
+The next example is a part of CSES problem [Tasks and Deadlines](https://cses.fi/problemset/task/1630). This time, we are working with sequence of _tasks_. Each task is described by two values $t_i$ and $d_i$. $t_i$ is the time duration taken to finish the task (irrespective of when you start it), $d_i$ is the deadline of that particular task. When we choose a permutation of the tasks, you do the tasks starting from time $0$, one by one, suppose we finish the $i$th task (original index) at $T_i$, then the penalty of that task is $T_i - d_i$. The score of the permutation is sum of all the penatlties. Our goal is to minimize this score. 
+
+Ok, let's try the way of last example. Suppose we have two tasks $(t, d)$ and $(t^\prime, d^\prime)$. In sequence $S_1$, they are at position $i, i+1$ and in sequence $S_2$, they are at position $i+1, i$ (and all other elements are same). Then $(t, d) \preceq (t^\prime, d^\prime)$ would mean $f(S_1) \leq f(S_2)$. And that means $T_1 - d + T_1^\prime - d^\prime \leq T_2^\prime - d^\prime + T_2 - d$. Here, $T_1, T_1^\prime$ are the end times of the tasks in $S_1$ and similarly $T_2, T_2^\prime$ are the end times of the tasks in $S_2$. Now since $S_1, S_2$ are same before position $i$, we can actually say $T_1 = C + t, T_1^\prime = C + t + t^\prime$ and $T_2^\prime = C + t^\prime, T_2 = C + t^\prime + t$. Here $C$ is the sum of all the time durations of tasks before $i$th position. So $f(S_1) \leq f(S_2)$ means 
+
+$$C + t - d + C + t + t^\prime - d^\prime \leq C + t^\prime - d^\prime + C + t^\prime + t - d$$
+
+Don't be afraid of the big equation. Most things cancel out and you get $t \leq t^\prime$. Sooo, $(t, d) \preceq (t^\prime, d^\prime)$ implies $(t \leq t^\prime)$. Again, this is a one way implication, but our goal is to define the $\preceq$. So we can define it as simply normal order between $t$. So sort by $t$, and you'll get the optimal sequence.
+
+So far easy examples, let's make it more difficult.
+
+### Example 3: Score Is Number of Inversions Between 0s And 1s
 
 ---
 _I try to share things that I have learnt recently, and in the process, I can obviously make mistakes, so if you think you found something wrong feel free to [create a issue in the github repository for this blog](https://github.com/upobir/upobir.github.io/issues/new)._
