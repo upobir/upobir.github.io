@@ -72,19 +72,43 @@ Enough talking, Let's analyze $f(S_1), f(S_2)$ While all the terms inside $\min$
 Phew, that was a lot of logical reasoning, but we've found our illusive sorting operator. Now you might be scratching your head so far thinking, what did I mean by a _well defined_ sorting operator? Let's see
 
 ### What's A _Well Defined_ order?
-Well, mathematically speaking, to sort by an operator it needs to be a [total order](https://en.wikipedia.org/wiki/Total_order). Total order has 4 properties that you can find in the wikipedia page. Let's list them,
+Well, mathematically speaking,   sort by an operator it needs to be a [total order](https://en.wikipedia.org/wiki/Total_order). Total order has 4 properties that you can find in the wikipedia page. Let's list them,
 
 1. Reflexivity: $a \preceq a$
 2. Transitivity: $a \preceq b, b\preceq c \implies a \preceq c$
 3. Antisymmetricity: $a \preceq b, b \preceq a \implies a = b$
 4. Strongly Connectedness: $a \preceq b$ or $b \preceq a$ always.
 
-Only when an order is a total order, can it be used to sort. Now antisymetricity is not important for us. The reason is trust me bro (actually the reason is we can treat our domain as a set of [equivalence classes](https://en.wikipedia.org/wiki/Equivalence_class), but that is another rabbit hole). Reflexivity and strongly connectedness are most of time trivial. The transitivity is the real issue. Now if we tried to define $a \preceq b$ as $\min \left(c_a - w_b, c_b\right) \geq \min\left(c_b - w_a, c_a\right)$, would that have been transitive? The answer is a bit complex and left as an exercise to the reader (hehe). But let's see one last example which will highlight the importance of transitivity.
+Only when an order is a total order, can it be used to sort. Now antisymetricity is not important for us. The reason is trust me bro (actually the reason is we can treat our domain as a set of [equivalence classes](https://en.wikipedia.org/wiki/Equivalence_class), but that is another rabbit hole). Reflexivity and strongly connectedness are most of time trivial. The transitivity is the real issue. Most of the time, reasoning from $f(S_1) \geq f(S_2)$, you can get to a candidate relation $g_1(a, b) \geq g_2(a, b)$ for $a \preceq b$. But if this is not transitive, the sorting will not work. If you're using some sorting algorithm, the algoirhtm will sprout out some shuffled up sequence. But without transitivity the original theorem won't work.
+
+In the previous example, we tried to define $a \preceq b$ as $\min \left(c_a - w_b, c_b\right) \geq \min\left(c_b - w_a, c_a\right)$, would that have been transitive? The answer is a bit complex and left as an exercise to the reader (hehe). But let's see one last example which will highlight the importance of transitivity.
 
 ### Example 5: Score Is Number of Inversions According To Product Order
+This example is a bit artificial. It's made only to highlight the requirement of transitivity. You are given $n$ $2$d points. The score of a permutation of these objects is the number of inversions in it according to _product order_. In product order, we say $(x_1, y_1) < (x_2, y_2)$ if and only if $x_1 < x_2$ and $y_1 < y_2$. __Note__, this order is actually not a total order! It's transitive but not strongly connected. For example, $(2, 5)$ and $(3, 1)$ are not comparable. For inversions to cout we need $(x_1, y_1) > (x_2, y_2)$ but the first point comes before the second one in the sequence. We need to minimize the number of inversions.
+
+This problem is similar to example 3. We follow the same process. Assume $a, b$ are two points and in sequences $S_1, S_2$ are elements are same except at positions $i, i+1$. In $S_1$, $a, b$ are at $i, i+1$, in $S_2$, $a, b$ are at $i+1, i$ positions. Now $a \preceq b$ means $f(S_1) \leq f(S_2)$. And like example 3, most of the inversions do not matter (they cancel out). In fact the only thing that is left is $i(a, b) \leq i(b, a)$ where
+
+$$
+i(p, q) = i((p_x, p_y), (q_x, q_y)) = \begin{cases}
+1 &\quad p_x > q_x \text{ and } p_y > q_y \\\\
+0 &\quad \text{ else} \\\\
+\end{cases}
+$$
+
+i.e. just the inversion contributed by $a, b$. An overly eager fellow might just say that we'll define $a \preceq b$ as $i(a, b) \leq i(b, a)$. But this relation is not transitive. Consider $p = (10, 10), q = (2, 20), r = (5, 5)$. then $i(p, q) = i(q, p) = i(q, r) = i(r, q) = i(r, p) = 0$ and $i(p, r) = 1$. From these values, we'd have $p \preceq q$ and $q \preceq r$ but $p \npreceq r$. So sorting by this operator would not do! What is the problem? If $i(a, b) < i(b, a)$ does indeed mean $f(S_1) < f(S_2)$, so keeping $a$ before $b$ meakes sense. But if $i(a, b) = i(b, a)$, we can't really say $a$ can come berfore $b$. The ties are the problems as they don't give us information.
+
+So what's the solution? well a good idea to is to derive something from this not-so-well-defined operation that is possibly better. We know that $i(a, b) < i(b, a)$ is good, well in this case surely, $a_x < b_x$ and $a_y < b_y$ and that implies $a_x + a_y < b_x + b_y$. Certainly, $a \preceq b \equiv a_x + a_y \leq b_x + b_y$ is a well defined operator. But we came to it from $f(S_1) < f(S_2)$, can we go in the opposite direction? It turns out, yes we can. If $a_x + a_y \leq b_x + b_y$ then it must be $i(a, b) \leq i(b, a)$, because otherwise $i(a, b) > i(b, a)$ and that means $a_x + a_y > b_x + b_y$! And $f(S_1) \leq f(S_2)$ is equivalent to $i(a, b) \leq i(b, a)$. So we're done! $a_x + a_y \leq b_x + b_y$ is the illusive operator we are looking for!
+
+You might be screaming at me now. Just few paragraphs earlier I said, we can't depend on implications and now I basically use a implication blindly and it magically happend that it went the other way too. Well I can't blame you, math is like that sometimes. But in this particular case, we knew that our operator needed to imply $i(a, b) \leq i(b, a)$. And $i(a, b) < i(b, a)$ was good to work with, but $i(a, b) = i(b, a)$ didn't help us. In this kind of particular case, due to the symmetrical nature of the relation, deriving any $g(a) < g(b)$ from $i(a, b) < i(b, a)$ is enough! Why? prove it yourself 😉. In fact we could have used $a_x * a_y \leq b_x * b_y$ too.
 
 
+### (Anti) Example 6: There is no illusive operator
+Ok I lied tiny bit, there is one more example. But this one is an anti-example. Some permutation optimizing problems don't really have a good operator to find. Here's an example of that. Suppose you are given $n$ numbers and the score of a permutation is defined as $f(S) = \sum \limits_{i=2}^{len(S)} |S_i - S_{i-1}|$. You need to maximize this score. Before you start writing up equations to find the mysterious $\preceq$, let me stop you. There isn't one. Why? suppose the $n$ numbers are $[1, 1, 1, 10, 10]$. After some trial and error, you will find that there is only one best permutation, that is $[1, 10, 1, 10, 1]$. And here's the problem, if there was an operator $\preceq$ which resulted in this sequence then that means $1 \preceq 10 \preceq 1$. That'd mean all of our elements are equivalent and any permutation should also produce the optimal answer. But that is of course false. So our theorem won't work.
 
+By the way, while no such operator can be found, can you still find the common pattern or algorithm to come up with the optimal sequence in this problem? It won't be sorting by some operator, but there is an algorithm.
+
+### Conclusion
+Ok, this was a difficult post to write. I had planned this article back in March. But things came up, I started the article, but couldn't even finish the first section. But recently something incredible happened, my country overthrew a dictator (haha tangential story, I know). And I decided to finish this article. Anyways, hope you learnt something good from this article. I actually have a part 2 planned, which focuses on a very specific type of permutation optimizing problem that I have faced many times over my life. But that will have to wait. Writing math heavy articles are difficult for me. If you find any new problems that utilize the theorem, let me know!
 
 ---
 _I try to share things that I have learnt recently, and in the process, I can obviously make mistakes, so if you think you found something wrong feel free to [create a issue in the github repository for this blog](https://github.com/upobir/upobir.github.io/issues/new)._
