@@ -4,8 +4,6 @@ date = 2024-09-04T23:15:00+06:00
 type = 'post'
 description = 'I had the idea for this article about seven months ago. Sadly never really got the time to write it. Not sure if I can make it true to the original version that I had planned. I will be explaining a common trick used in various greedy competitve programming problems. There are plans for a part 2, in fact the part 2 will have the actual thing I had planned originally. But this part is heavy enough that I decided to break the topic into two parts.'
 tags = ['competitive programming', 'greedy']
-
-draft = true
 +++
 
 Greedy problems are a common category of problems in competitive programming problem sets. In the simplest terms, these problems ask us to _optimize_ a value in some scenario, and turns out by using some small _greedy_ decisions, we can optimize the target value. This is, of course, not always the case. But in many cases, it is. I find greedy solutions to problems to be fun. But not the solving part, rather the proving part (Yes, one should prove why the solution works, at least when practising). 
