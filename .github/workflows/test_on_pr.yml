@@ -16,4 +16,5 @@ jobs:
       - name: Run shell script
         run: |
           chmod +x ./ci-test.sh
+          echo ok
         shell: bash
