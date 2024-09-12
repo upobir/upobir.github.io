@@ -4,6 +4,7 @@ date = 2021-12-09T01:12:58+06:00
 type = 'post'
 description = 'One day while playing around with inequalities, I came to a very interesting discovery. It was an interesting approach to the Inequality of Arithmetic and Geometric Mean. As far as I know this is a new proof. So here it is'
 tags = ['mathematics']
+
 draft = true
 +++
 
