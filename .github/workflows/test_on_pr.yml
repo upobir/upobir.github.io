@@ -15,9 +15,5 @@ jobs:
 
       - name: Run shell script
         run: |
-          echo "::group::title 1"
-          chmod +x ./ci-test.sh
-          echo "::endgroup::"
-          echo "::group::title 2"
-          ./ci-test.sh
-          echo "::endgroup::"
+          echo test
+        shell: bash
